@@ -1,0 +1,25 @@
+/** JavaFX Stylesheet **/
+
+.root {
+    -fx-background-color: #22D470;
+    -fx-text-fill: #FFFFFF;
+}
+
+.button {
+    -fx-background-color: white;
+    -fx-padding: 8 32 8 32;
+    -fx-text-fill: black;
+    -fx-font-size: 14px;
+}
+
+.text-field {
+    -fx-background-color: white;
+    -fx-text-fill: black;
+    -fx-font-size: 14px;
+}
+
+.date-picker{
+    -fx-background-color: white;
+    -fx-text-fill: black;
+    -fx-font-size: 14px;
+}
