@@ -1,6 +1,5 @@
 package JMS;
 
-import models.FlightOffer;
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.apache.activemq.jms.pool.PooledConnectionFactory;
 
@@ -24,7 +23,7 @@ public class ProducerGateway {
      * @param object is the object that needs to be send
      * @throws JMSException is the possible JMS exception
      */
-    public void sendFlightOfferViaQueue(Serializable object, String channelName) throws JMSException {
+    public void sendObjectViaQueue(Serializable object, String channelName) throws JMSException {
         ActiveMQConnectionFactory connectionFactory = JMS.createActiveMQConnectionFactory();
         PooledConnectionFactory pooledConnectionFactory = JMS.createPooledConnectionFactory(connectionFactory);
         Connection producerConnection = pooledConnectionFactory.createConnection();
@@ -54,7 +53,7 @@ public class ProducerGateway {
      * @param object is the object that needs to be send
      * @throws JMSException
      */
-    public void sendFlightOfferViaTopic(Serializable object, String topicName) throws JMSException {
+    public void sendObjectViaTopic(Serializable object, String topicName) throws JMSException {
         ActiveMQConnectionFactory connectionFactory = JMS.createActiveMQConnectionFactory();
         PooledConnectionFactory pooledConnectionFactory = JMS.createPooledConnectionFactory(connectionFactory);
         Connection producerConnection = pooledConnectionFactory.createConnection();

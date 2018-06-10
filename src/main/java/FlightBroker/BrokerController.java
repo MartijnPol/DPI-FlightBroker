@@ -26,6 +26,7 @@ public class BrokerController {
      * Constructor to initialize some connections with AmazonMQ
      */
     public BrokerController() {
+
         this.consumerGateway = new ConsumerGateway();
         this.producerGateway = new ProducerGateway();
 
@@ -69,10 +70,10 @@ public class BrokerController {
      * Function to send a FlightOffer to the subscribers
      *
      * @param flightOffer the FlightOffer object that needs to be send
-     * @throws JMSException
+     * @throws JMSException is the JMS exception
      */
     private void sendFlightOfferToAirlines(FlightOffer flightOffer) throws JMSException {
-        producerGateway.sendFlightOfferViaTopic(flightOffer, "FlightOfferTopic");
+        producerGateway.sendObjectViaTopic(flightOffer, "FlightOfferTopic");
     }
 
 }

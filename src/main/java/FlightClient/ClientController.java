@@ -38,7 +38,7 @@ public class ClientController {
     private void sendFlightOffer() {
         try {
             FlightOffer flightOffer = createFlightOffer();
-            this.producerGateway.sendFlightOfferViaQueue(flightOffer, QueueType.CLIENT_BROKER_REQUEST.toString());
+            this.producerGateway.sendObjectViaQueue(flightOffer, QueueType.CLIENT_BROKER_REQUEST.toString());
         } catch (JMSException e) {
             e.printStackTrace();
         }

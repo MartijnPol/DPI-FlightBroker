@@ -8,11 +8,11 @@ import java.io.Serializable;
 public class FlightOfferReply implements Serializable {
 
     private String airlineName;
-    private String message;
+    private Double price;
 
-    public FlightOfferReply(String airlineName, String message) {
+    public FlightOfferReply(String airlineName, Double price) {
         this.airlineName = airlineName;
-        this.message = message;
+        this.price = price;
     }
 
     public String getAirlineName() {
@@ -23,15 +23,15 @@ public class FlightOfferReply implements Serializable {
         this.airlineName = airlineName;
     }
 
-    public String getMessage() {
-        return message;
+    public Double getPrice() {
+        return price;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setPrice(Double price) {
+        this.price = price;
     }
 
     public String toString() {
-        return "Price offer from " + this.airlineName + ": " + this.message;
+        return "Price offer from " + this.airlineName + ": " + this.price;
     }
 }

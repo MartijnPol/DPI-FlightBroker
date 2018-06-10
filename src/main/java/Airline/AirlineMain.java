@@ -15,7 +15,7 @@ public class AirlineMain extends Application {
      * Function to start the FlightBroker application
      *
      * @param primaryStage is the stage of the application
-     * @throws Exception
+     * @throws Exception is the water is wet. You know?
      */
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/AirlineFrame.fxml"));

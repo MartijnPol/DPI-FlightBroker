@@ -4,6 +4,7 @@ import JMS.*;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import models.FlightOffer;
 import models.FlightOfferReply;
 
@@ -16,12 +17,17 @@ import javax.jms.ObjectMessage;
 public class AirlineController {
 
     private ProducerGateway producerGateway;
+    private ConsumerGateway consumerGateway;
 
     @FXML
     private ListView<FlightOffer> flightOfferListView;
 
+    @FXML
+    private TextField priceTextField;
+
     public AirlineController() {
-        ConsumerGateway consumerGateway = new ConsumerGateway();
+
+        this.consumerGateway = new ConsumerGateway();
         this.producerGateway = new ProducerGateway();
 
         // Set listener to handle the received message from the FlightTopic
@@ -30,7 +36,6 @@ public class AirlineController {
                 try {
                     FlightOffer flightOffer = (FlightOffer) ((ObjectMessage) receivedFlightOffer).getObject();
                     addFlightOffer(flightOffer);
-                    sendFlightOfferReply(new FlightOfferReply("Transavia", "500"));
                 } catch (JMSException e) {
                     e.printStackTrace();
                 }
@@ -48,8 +53,16 @@ public class AirlineController {
         Platform.runLater(() -> this.flightOfferListView.getItems().add(flightOffer));
     }
 
-    private void sendFlightOfferReply(FlightOfferReply flightOfferReply) throws JMSException {
-        producerGateway.sendFlightOfferViaQueue(flightOfferReply, QueueType.AIRLINE_BROKER_REPLY.toString());
+    @FXML
+    private void sendFlightOfferReply() {
+        if (flightOfferListView.getSelectionModel().getSelectedItem() != null) {
+            try {
+                FlightOfferReply flightOfferReply = new FlightOfferReply("Transavia", new Double(priceTextField.getText()));
+                producerGateway.sendObjectViaQueue(flightOfferReply, QueueType.AIRLINE_BROKER_REPLY.toString());
+            } catch (JMSException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 }
