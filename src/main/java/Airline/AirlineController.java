@@ -55,9 +55,10 @@ public class AirlineController {
 
     @FXML
     private void sendFlightOfferReply() {
-        if (flightOfferListView.getSelectionModel().getSelectedItem() != null) {
+        FlightOffer selectedFlightOffer = flightOfferListView.getSelectionModel().getSelectedItem();
+        if (selectedFlightOffer != null) {
             try {
-                FlightOfferReply flightOfferReply = new FlightOfferReply("Transavia", new Double(priceTextField.getText()));
+                FlightOfferReply flightOfferReply = new FlightOfferReply("Transavia", new Double(priceTextField.getText()), selectedFlightOffer);
                 producerGateway.sendObjectViaQueue(flightOfferReply, QueueType.AIRLINE_BROKER_REPLY.toString());
             } catch (JMSException e) {
                 e.printStackTrace();

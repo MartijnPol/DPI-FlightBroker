@@ -9,10 +9,12 @@ public class FlightOfferReply implements Serializable {
 
     private String airlineName;
     private Double price;
+    private FlightOffer flightOffer;
 
-    public FlightOfferReply(String airlineName, Double price) {
+    public FlightOfferReply(String airlineName, Double price, FlightOffer flightOffer) {
         this.airlineName = airlineName;
         this.price = price;
+        this.flightOffer = flightOffer;
     }
 
     public String getAirlineName() {
@@ -29,6 +31,14 @@ public class FlightOfferReply implements Serializable {
 
     public void setPrice(Double price) {
         this.price = price;
+    }
+
+    public FlightOffer getFlightOffer() {
+        return flightOffer;
+    }
+
+    public void setFlightOffer(FlightOffer flightOffer) {
+        this.flightOffer = flightOffer;
     }
 
     public String toString() {
