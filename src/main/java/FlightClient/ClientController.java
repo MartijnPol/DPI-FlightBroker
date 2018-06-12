@@ -2,7 +2,9 @@ package FlightClient;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import models.FlightOfferReply;
 import models.FlightOfferRequest;
 
 /**
@@ -22,6 +24,8 @@ public class ClientController implements IClientController {
     private DatePicker departureDatePicker;
     @FXML
     private DatePicker returnDatePicker;
+    @FXML
+    private ListView<FlightOfferReply> flightOfferReplyListView;
 
     /**
      * Constructor to initialize some connections with AmazonMQ
@@ -51,4 +55,13 @@ public class ClientController implements IClientController {
                 returnDatePicker.getValue());
     }
 
+    /**
+     * Function to add a FlightOfferReply to the flightOfferReplyListView
+     *
+     * @param flightOfferReply the FlightOfferReply object that needs to be added to the flightOfferReplyListView
+     */
+    @Override
+    public void addFlightOfferReply(FlightOfferReply flightOfferReply) {
+        flightOfferReplyListView.getItems().add(flightOfferReply);
+    }
 }

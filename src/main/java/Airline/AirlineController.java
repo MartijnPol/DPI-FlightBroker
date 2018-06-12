@@ -17,6 +17,8 @@ public class AirlineController implements IAirlineController {
     private ListView<FlightOfferRequest> flightOfferListView;
     @FXML
     private TextField priceTextField;
+    @FXML
+    private TextField airlineTextField;
 
     public AirlineController() {
         this.airlineGateway = new AirlineGateway(this);
@@ -35,7 +37,7 @@ public class AirlineController implements IAirlineController {
     private void sendFlightOfferReply() {
         FlightOfferRequest selectedFlightOfferRequest = flightOfferListView.getSelectionModel().getSelectedItem();
         if (selectedFlightOfferRequest != null) {
-            FlightOfferReply flightOfferReply = new FlightOfferReply("Transavia", new Double(priceTextField.getText()), selectedFlightOfferRequest);
+            FlightOfferReply flightOfferReply = new FlightOfferReply(airlineTextField.getText(), new Double(priceTextField.getText()), selectedFlightOfferRequest);
             this.airlineGateway.sendFlightOfferReplyToBroker(flightOfferReply);
         }
     }

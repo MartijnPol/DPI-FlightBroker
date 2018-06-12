@@ -19,7 +19,7 @@ public class AirlineMain extends Application {
      */
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/AirlineFrame.fxml"));
-        primaryStage.setTitle("Airline - Transavia");
+        primaryStage.setTitle("Airline");
         primaryStage.setResizable(false);
         primaryStage.setScene(new Scene(root));
         primaryStage.show();

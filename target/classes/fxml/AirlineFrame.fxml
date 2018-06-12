@@ -15,7 +15,8 @@
         <ListView fx:id="flightOfferListView" focusTraversable="false" layoutY="55.0" prefHeight="300.0" prefWidth="600.0" AnchorPane.bottomAnchor="65.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="55.0" />
       <HBox alignment="CENTER_LEFT" prefHeight="66.0" prefWidth="200.0" spacing="16.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="354.0">
          <children>
-            <TextField fx:id="priceTextField" prefHeight="34.0" prefWidth="454.0" promptText="Price">
+            <TextField fx:id="airlineTextField" layoutX="10.0" layoutY="26.0" prefHeight="34.0" prefWidth="220.0" promptText="Airline" />
+            <TextField fx:id="priceTextField" prefHeight="34.0" prefWidth="220.0" promptText="Price">
                <HBox.margin>
                   <Insets />
                </HBox.margin>
@@ -23,7 +24,7 @@
             <Button mnemonicParsing="false" onAction="#sendFlightOfferReply" text="Send" />
          </children>
       </HBox>
-        <Label id="TitleLabel" layoutX="200.0" layoutY="14.0" text="Airline - Transavia" textFill="WHITE" AnchorPane.bottomAnchor="375.0" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="16.0">
+        <Label id="TitleLabel" layoutX="200.0" layoutY="14.0" text="Airline" textFill="WHITE" AnchorPane.bottomAnchor="375.0" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="16.0">
             <font>
                 <Font name="System Bold" size="24.0" />
             </font>
