@@ -9,21 +9,31 @@ import java.util.Date;
 /**
  * Created by Martijn van der Pol on 07-06-18
  **/
-public class FlightOffer implements Serializable {
+public class FlightOfferRequest implements Serializable {
 
+    private String id;
     private String departureAirport;
     private String arrivalAirport;
     private Date departureDate;
     private Date returnDate;
 
-    public FlightOffer() {
+    public FlightOfferRequest() {
     }
 
-    public FlightOffer(String departureAirport, String arrivalAirport, LocalDate departureDate, LocalDate returnDate) {
+    public FlightOfferRequest(String id, String departureAirport, String arrivalAirport, LocalDate departureDate, LocalDate returnDate) {
+        this.id = id;
         this.departureAirport = departureAirport;
         this.arrivalAirport = arrivalAirport;
         this.departureDate = Date.from(Instant.from(departureDate.atStartOfDay(ZoneId.systemDefault())));
         this.returnDate = Date.from(Instant.from(returnDate.atStartOfDay(ZoneId.systemDefault())));
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getDepartureAirport() {
@@ -59,7 +69,7 @@ public class FlightOffer implements Serializable {
     }
 
     public String toString() {
-        return "FlightOffer received from " + this.departureAirport + " to " + this.arrivalAirport;
+        return "FlightOfferRequest received from " + this.departureAirport + " to " + this.arrivalAirport;
     }
 
 }

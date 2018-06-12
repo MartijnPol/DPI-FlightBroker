@@ -1,20 +1,19 @@
 package FlightClient;
 
-import JMS.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
-import models.FlightOffer;
-
-import javax.jms.JMSException;
+import models.FlightOfferRequest;
 
 /**
  * Created by Martijn van der Pol on 31-05-18
  **/
-public class ClientController {
+public class ClientController implements IClientController {
 
-    private ProducerGateway producerGateway;
+    private ClientGateway clientGateway;
 
+    @FXML
+    private TextField nameField;
     @FXML
     private TextField departureAirportField;
     @FXML
@@ -28,7 +27,7 @@ public class ClientController {
      * Constructor to initialize some connections with AmazonMQ
      */
     public ClientController() {
-        this.producerGateway = new ProducerGateway();
+        this.clientGateway = new ClientGateway(this);
     }
 
     /**
@@ -36,21 +35,17 @@ public class ClientController {
      */
     @FXML
     private void sendFlightOffer() {
-        try {
-            FlightOffer flightOffer = createFlightOffer();
-            this.producerGateway.sendObjectViaQueue(flightOffer, QueueType.CLIENT_BROKER_REQUEST.toString());
-        } catch (JMSException e) {
-            e.printStackTrace();
-        }
+        FlightOfferRequest flightOfferRequest = createFlightOffer();
+        this.clientGateway.sendFlightOfferRequest(flightOfferRequest);
     }
 
     /**
-     * Create a FlightOffer based on given values
+     * Create a FlightOfferRequest based on given values
      *
-     * @return a valid FlightOffer
+     * @return a valid FlightOfferRequest
      */
-    private FlightOffer createFlightOffer() {
-        return new FlightOffer(departureAirportField.getText(),
+    private FlightOfferRequest createFlightOffer() {
+        return new FlightOfferRequest(nameField.getText(), departureAirportField.getText(),
                 arrivalAirportField.getText(),
                 departureDatePicker.getValue(),
                 returnDatePicker.getValue());

@@ -39,7 +39,7 @@ public class ProducerGateway {
 
         ObjectMessage flightOfferMessage = producerSession.createObjectMessage(object);
         messageQueueProducer.send(flightOfferMessage);
-        System.out.println("FlightOffer sent via FlightBrokerQueue." + channelName);
+        System.out.println("FlightOfferRequest sent via FlightBrokerQueue." + channelName);
 
         // Close connections
         messageQueueProducer.close();
@@ -67,7 +67,7 @@ public class ProducerGateway {
 
         ObjectMessage flightOfferMessage = producerSession.createObjectMessage(object);
         messageTopicProducer.send(flightOfferMessage);
-        System.out.println("FlightOffer sent via Topic");
+        System.out.println("FlightOfferRequest sent via Topic");
 
         // Close connections
         messageTopicProducer.close();

@@ -1,68 +1,42 @@
 package Airline;
 
-import JMS.*;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import models.FlightOffer;
 import models.FlightOfferReply;
-
-import javax.jms.JMSException;
-import javax.jms.ObjectMessage;
+import models.FlightOfferRequest;
 
 /**
  * Created by Martijn van der Pol on 30-05-18
  **/
-public class AirlineController {
+public class AirlineController implements IAirlineController {
 
-    private ProducerGateway producerGateway;
-    private ConsumerGateway consumerGateway;
+    private AirlineGateway airlineGateway;
 
     @FXML
-    private ListView<FlightOffer> flightOfferListView;
-
+    private ListView<FlightOfferRequest> flightOfferListView;
     @FXML
     private TextField priceTextField;
 
     public AirlineController() {
-
-        this.consumerGateway = new ConsumerGateway();
-        this.producerGateway = new ProducerGateway();
-
-        // Set listener to handle the received message from the FlightTopic
-        consumerGateway.topicMessageListener(receivedFlightOffer -> {
-            if (receivedFlightOffer instanceof ObjectMessage) {
-                try {
-                    FlightOffer flightOffer = (FlightOffer) ((ObjectMessage) receivedFlightOffer).getObject();
-                    addFlightOffer(flightOffer);
-                } catch (JMSException e) {
-                    e.printStackTrace();
-                }
-            }
-        }, "FlightOfferTopic");
-
+        this.airlineGateway = new AirlineGateway(this);
     }
 
     /**
-     * Function to add a FlightOffer to the flightOfferListView
+     * Function to add a FlightOfferRequest to the flightOfferListView
      *
-     * @param flightOffer the FlightOffer object that needs to be added to the ListView
+     * @param flightOfferRequest the FlightOfferRequest object that needs to be added to the ListView
      */
-    private void addFlightOffer(FlightOffer flightOffer) {
-        Platform.runLater(() -> this.flightOfferListView.getItems().add(flightOffer));
+    public void addFlightOffer(FlightOfferRequest flightOfferRequest) {
+        this.flightOfferListView.getItems().add(flightOfferRequest);
     }
 
     @FXML
     private void sendFlightOfferReply() {
-        FlightOffer selectedFlightOffer = flightOfferListView.getSelectionModel().getSelectedItem();
-        if (selectedFlightOffer != null) {
-            try {
-                FlightOfferReply flightOfferReply = new FlightOfferReply("Transavia", new Double(priceTextField.getText()), selectedFlightOffer);
-                producerGateway.sendObjectViaQueue(flightOfferReply, QueueType.AIRLINE_BROKER_REPLY.toString());
-            } catch (JMSException e) {
-                e.printStackTrace();
-            }
+        FlightOfferRequest selectedFlightOfferRequest = flightOfferListView.getSelectionModel().getSelectedItem();
+        if (selectedFlightOfferRequest != null) {
+            FlightOfferReply flightOfferReply = new FlightOfferReply("Transavia", new Double(priceTextField.getText()), selectedFlightOfferRequest);
+            this.airlineGateway.sendFlightOfferReplyToBroker(flightOfferReply);
         }
     }
 
