@@ -51,7 +51,7 @@ public class BrokerController implements IBrokerController {
     public void addToListView(Serializable object) {
         this.flightOfferListView.getItems().add(object.toString());
     }
-    
+
     /**
      * Set TimerText with the given interval
      *
